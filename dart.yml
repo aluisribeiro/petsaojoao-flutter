@@ -1,0 +1,26 @@
+name: Dart CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  google/dart:latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+    - uses: subosito/flutter-action@v1.2.0
+    - name: Flutter action
+      run: pub get
+    - name: Run tests
+      run: pub run test
+      
+   
