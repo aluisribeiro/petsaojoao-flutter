@@ -21,6 +21,14 @@ The app comes with the idea of domestic animal control in a city. Therefore:
 ## Multiplataform:
 The app is capable of running in both Android and IOS.
 
+## Follow our community social media and participate:
+
+- [Facebook]()
+- [Instagram]()
+- [Youtube]()
+- [Github]()
+- [Comunidade no Facebook]()
+
 
 [Logo Pet São João]: https://github.com/LucasNicolauDelGiudice/petsaojoao-board/blob/master/public/images/Screenshot.png
 [Gif Exemplo]: https://github.com/LucasNicolauDelGiudice/petsaojoao-board/blob/master/public/images/Hello%20World.gif
