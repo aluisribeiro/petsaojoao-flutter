@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petsaojoao/pages/Login/login.dart';
+import 'package:petsaojoao/pages/login/login.dart';
 
 //Acompanhe desing do projeto aqui --> https://www.figma.com/file/GYFrt79mzIbOUXXmFyDgwL/Material-Baseline-Design-Kit?node-id=38%3A5814
 
