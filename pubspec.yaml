@@ -24,8 +24,21 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   # Ao Adicionar depencias use comando >flutter packages get<
   cupertino_icons: ^0.1.2
+  camera: ^0.5.7+4
+  path: ^1.6.3
+  path_provider:
   shared_preferences: ^0.5.3
   flutter_launcher_icons: "^0.7.3"
+  font_awesome_flutter: ^8.8.1
+  progress_indicators: ^0.1.2
+  masked_text: ^0.0.6
+  cpfcnpj: ^1.0.3
+  http: ^0.12.0+4
+  dio: ^3.0.9
+  firebase_storage: ^3.1.5
+  flutter_masked_text: ^0.8.0
+  logger: ^0.9.1
+  via_cep: ^1.0.6
 
 #Icone do Aplicativo
 #Use comando seguinte para carregar o icon do app >flutter packages pub run flutter_launcher_icons:main<
@@ -49,7 +62,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icon/icon.png
-    #- assets/background/paisagem.jpg
+    - assets/background/top_paws.png
+    - assets/background/bottom_paws.png
+    - assets/reg_my_pet/side_dog.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
