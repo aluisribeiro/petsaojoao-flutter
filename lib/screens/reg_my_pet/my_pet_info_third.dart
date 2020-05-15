@@ -7,6 +7,7 @@ import 'package:petsaojoao/components/foundation_form/data_security_info.dart';
 import 'package:petsaojoao/models/validators/castration_validator.dart';
 import 'package:petsaojoao/models/validators/microchip_validator.dart';
 import 'package:petsaojoao/models/validators/size_pet_validator.dart';
+import 'package:petsaojoao/models/back_reg_my_pet/camera_initializer_button.dart';
 
 import 'initial_pics_pet.dart';
 
@@ -86,8 +87,7 @@ class _FormMyPetInfoThirdState extends State<FormMyPetInfoThird> {
           ),
           ButtonConfirmForm(() {
             if (_myPetInfoThirdFormKey.currentState.validate()) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => InititialPicsPet()));
+              cameraInitializer(context);
             }
           })
         ]),

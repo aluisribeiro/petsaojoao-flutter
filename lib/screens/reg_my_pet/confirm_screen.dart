@@ -131,7 +131,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.check),
           onPressed: () async {
-            await releaseOrientation();
+            releaseOrientation();
 
             try {
               Navigator.push(

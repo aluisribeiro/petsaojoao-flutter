@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/picture_upload_firebase.dart';
 
+import 'package:petsaojoao/screens/dashboard/dashboard.dart';
+
+import '../dashboard/dashboard.dart';
+import '../register_tutor/personal_info.dart';
+import '../register_tutor/personal_info.dart';
+
 class EndRegMyPet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -10,7 +16,7 @@ class EndRegMyPet extends StatelessWidget {
         backgroundColor: Colors.blueAccent[200],
         body: ListView(
           children: <Widget>[
-            Container(child: Image.asset('assets/background/superior.png')),
+            Container(child: Image.asset('assets/background/top_paws.png')),
             SizedBox(
               height: 100,
             ),
@@ -33,8 +39,9 @@ class EndRegMyPet extends StatelessWidget {
               disabledColor: Colors.green,
               disabledTextColor: Colors.grey,
               onPressed: () async {
-                final resposta = await sendToServer();
-                if (resposta == 'complete') {}
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => Dashboard(),
+                ));
               },
               child: Container(
                 width: 100,
@@ -43,7 +50,7 @@ class EndRegMyPet extends StatelessWidget {
                 child: (Text('Enviar')),
               ),
             ),
-            Container(child: Image.asset('assets/background/inferior.png')),
+            Container(child: Image.asset('assets/background/bottom_paws.png')),
           ],
         ),
       ),
