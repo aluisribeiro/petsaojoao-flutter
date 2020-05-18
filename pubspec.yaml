@@ -39,7 +39,8 @@ dependencies:
   flutter_masked_text: ^0.8.0
   logger: ^0.9.1
   via_cep: ^1.0.6
-
+  firebase_messaging: ^6.0.15
+  
 #Icone do Aplicativo
 #Use comando seguinte para carregar o icon do app >flutter packages pub run flutter_launcher_icons:main<
 flutter_icons:
