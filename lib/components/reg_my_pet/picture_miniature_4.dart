@@ -1,25 +1,19 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/sizes_info.dart';
 
-pictureMiniatureTwo(context, image1) {
+pictureMiniatureFour(context) {
   return Container(
     padding: EdgeInsets.all(20),
     child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
+            Center(
               child: Text(
-                "1 de 3 ",
+                "Tirar Nova Foto",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-              ),
-            ),
-            Container(
-              child: Text(
-                'fotos registradas',
-                style: TextStyle(fontSize: 20),
               ),
             ),
           ],
@@ -30,11 +24,10 @@ pictureMiniatureTwo(context, image1) {
             children: <Widget>[
               Container(
                 height: widgetSize(context, 10),
-                child: Image.file(File(image1)),
               ),
             ],
           ),
-        ),
+        )
       ],
     ),
   );

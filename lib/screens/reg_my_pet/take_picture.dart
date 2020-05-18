@@ -14,12 +14,14 @@ class TakePicture extends StatefulWidget {
   final String image2;
   final int num;
   final Widget nextPage;
+  final bool deleting;
 
   const TakePicture({
     Key key,
     @required this.camera,
     @required this.num,
     @required this.nextPage,
+    this.deleting,
     this.image1,
     this.image2,
   }) : super(key: key);
@@ -58,6 +60,7 @@ class _TakePictureState extends State<TakePicture> {
   @override
   Widget build(BuildContext context) {
     final _num = widget.num;
+    final _deleting = widget.deleting;
     String _image1 = widget.image1;
     String _image2 = widget.image2;
     Widget _nextPage = widget.nextPage;
@@ -77,7 +80,7 @@ class _TakePictureState extends State<TakePicture> {
                     width: widgetSize(context, 1.5),
                     child: CameraPreview(_controller),
                   ),
-                  pictureMiniatures(context, _num, _image1, _image2),
+                  pictureMiniatures(context, _num, _image1, _image2, _deleting),
                   Divider(
                     color: Colors.black,
                     thickness: 1.5,

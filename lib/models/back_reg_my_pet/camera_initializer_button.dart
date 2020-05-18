@@ -22,16 +22,19 @@ cameraInitializer(context) async {
       builder: (context) => TakePicture(
         camera: camera,
         num: 1,
+        deleting: false,
         nextPage: TakePicture(
           camera: camera,
           image1: image1,
           image2: image2,
           num: 2,
+          deleting: false,
           nextPage: TakePicture(
             camera: camera,
             image1: image1,
             image2: image2,
             num: 3,
+            deleting: false,
             nextPage: ConfirmScreen(
               image1: image1,
               image2: image2,
