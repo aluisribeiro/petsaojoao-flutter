@@ -1,30 +1,36 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'package:petsaojoao/models/back_reg_my_pet/camera_info.dart';
-import 'package:petsaojoao/models/back_reg_my_pet/picture_info.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/orientation_organize.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/sizes_info.dart';
+import 'package:petsaojoao/models/back_reg_my_pet/picture_miniatures.dart';
+import 'package:petsaojoao/models/back_reg_my_pet/picture_save.dart';
 
-import 'take_second_picture.dart';
-
-class TakeFirstPic extends StatefulWidget {
+class TakePicture extends StatefulWidget {
   final CameraDescription camera;
+  final String image1;
+  final String image2;
+  final int num;
+  final Widget nextPage;
+  final bool deleting;
 
-  const TakeFirstPic({
+  const TakePicture({
     Key key,
     @required this.camera,
+    @required this.num,
+    @required this.nextPage,
+    this.deleting,
+    this.image1,
+    this.image2,
   }) : super(key: key);
 
   @override
-  _TakeFirstPicState createState() => _TakeFirstPicState();
+  _TakePictureState createState() => _TakePictureState();
 }
 
-class _TakeFirstPicState extends State<TakeFirstPic> {
+class _TakePictureState extends State<TakePicture> {
   CameraController _controller;
   Future<void> _initializeControllerFuture;
 
@@ -43,6 +49,9 @@ class _TakeFirstPicState extends State<TakeFirstPic> {
   }
 
   @override
+  // TODO: implement widget
+  TakePicture get widget => super.widget;
+
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -50,11 +59,15 @@ class _TakeFirstPicState extends State<TakeFirstPic> {
 
   @override
   Widget build(BuildContext context) {
+    final _num = widget.num;
+    final _deleting = widget.deleting;
+    String _image1 = widget.image1;
+    String _image2 = widget.image2;
+    Widget _nextPage = widget.nextPage;
     return new WillPopScope(
-      onWillPop: null,
-//          () async {
-      //   return null;
-//      },
+      onWillPop: () async {
+        return null;
+      },
       child: Scaffold(
         body: FutureBuilder<void>(
           future: _initializeControllerFuture,
@@ -67,36 +80,7 @@ class _TakeFirstPicState extends State<TakeFirstPic> {
                     width: widgetSize(context, 1.5),
                     child: CameraPreview(_controller),
                   ),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            "0 de 3 ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25),
-                          ),
-                        ),
-                        Container(
-                          child: Text(
-                            'fotos registradas',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          height: widgetSize(context, 10),
-                        ),
-                      ],
-                    ),
-                  ),
+                  pictureMiniatures(context, _num, _image1, _image2, _deleting),
                   Divider(
                     color: Colors.black,
                     thickness: 1.5,
@@ -112,20 +96,14 @@ class _TakeFirstPicState extends State<TakeFirstPic> {
           child: Icon(Icons.camera_alt),
           onPressed: () async {
             try {
-              await _initializeControllerFuture;
 
-              final path = await getFirstPic();
-
-              await verifyPicPath(path);
-
-              final camera = await getCameraInfo();
-              await _controller.takePicture(path);
+              await pictureSave(_initializeControllerFuture, _num, _controller);
 
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      TakeSecondPic(camera: camera, image1: path),
+                  _nextPage,
                 ),
               );
             } catch (e) {
