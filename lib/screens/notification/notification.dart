@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:petsaojoao/screens/dashboard/dashboard.dart';
 
 class Notification extends StatefulWidget {
   @override
@@ -9,47 +10,49 @@ class Notification extends StatefulWidget {
 class _NotificationState extends State<Notification> {
 
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  String novoToken = "";
+  String newToken = "";
 
   @override
   void initState() {
     super.initState();
     this.startFirebaseListeners();
   }
-    
+
+  void openScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Dashboard()
+      )
+    );
+  }
+
   void startFirebaseListeners() {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("Menssagem: $message");
+        openScreen();
       },
       onResume: (Map<String, dynamic> message) async {
         print("Resume: $message");
+        openScreen();
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("Launch: $message");
+        openScreen();
       }
     );
 
     _firebaseMessaging.getToken().then((token) {
       print("Token_____________________________: " + token + " Fim do token");
       setState(() {
-       novoToken = token; 
+       newToken = token;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(32),
-        child:Column(
-          children: <Widget>[
-            Text(novoToken)
-          ],
-        )
-      )
-    );
+    return Container();
   }
 }
