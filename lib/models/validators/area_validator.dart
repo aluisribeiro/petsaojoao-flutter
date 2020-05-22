@@ -1,4 +1,4 @@
-class NeighborhoodValidator {
+class AreaValidator {
   String validate(String value) {
     const requiredField = "O campo é obrigatorio";
     if (value.isEmpty) {

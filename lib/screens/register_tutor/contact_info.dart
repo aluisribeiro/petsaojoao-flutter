@@ -47,6 +47,20 @@ class _ContactInfoState extends State<ContactInfo> {
 }
 
 class FormContact extends StatefulWidget {
+  String getEmail() {
+    return _emailController.text;
+  }
+
+  String getPhone() {
+    _phoneController.updateMask("00000000000");
+    return _phoneController.text;
+  }
+
+  String getWhatsapp() {
+    _whatsappController.updateMask("00000000000");
+    return _whatsappController.text;
+  }
+
   @override
   _FormContactState createState() => _FormContactState();
 }

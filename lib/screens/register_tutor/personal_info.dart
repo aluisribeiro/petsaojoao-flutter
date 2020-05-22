@@ -65,6 +65,20 @@ Route dashboard() {
 }
 
 class FormPersonal extends StatefulWidget {
+  String getName() {
+    return _nameController.text;
+  }
+
+  String getRg() {
+    _rgController.updateMask("00000000");
+    return _rgController.text;
+  }
+
+  String getCpf() {
+    _cpfController.updateMask("00000000000");
+    return _cpfController.text;
+  }
+
   @override
   _FormPersonalState createState() => _FormPersonalState();
 }
