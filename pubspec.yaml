@@ -43,6 +43,9 @@ dependencies:
   google_sign_in: ^4.4.4
   firebase_auth: ^0.16.0
   flutter_facebook_login: ^3.0.0
+  carousel_slider: ^2.1.0
+  material_design_icons_flutter: 4.0.5245
+
 
 
 #Icone do Aplicativo
