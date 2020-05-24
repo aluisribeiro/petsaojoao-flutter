@@ -7,17 +7,17 @@ import 'package:petsaojoao/components/foundation_form/button_confirmForm.dart';
 import 'package:petsaojoao/components/foundation_form/data_security_info.dart';
 import 'package:petsaojoao/models/validators/cep_validator.dart';
 import 'package:petsaojoao/models/validators/house_number_validator.dart';
-import 'package:petsaojoao/models/validators/neighborhood_validator.dart';
+import 'package:petsaojoao/models/validators/area_validator.dart';
 import 'package:petsaojoao/models/validators/street_validator.dart';
 
 import 'contact_info.dart';
 
 var _cepController = new MaskedTextController(mask: '00000-000');
 TextEditingController _streetController = new TextEditingController();
-TextEditingController _neighborhoodController = new TextEditingController();
+TextEditingController _areaController = new TextEditingController();
 TextEditingController _houseNumberController = new TextEditingController();
 TextEditingController _cityController = new TextEditingController();
-TextEditingController _additionalAddressController =
+TextEditingController _complementAddressController =
     new TextEditingController();
 
 class AndressInfo extends StatefulWidget {
@@ -52,10 +52,33 @@ class _AndressInfoState extends State<AndressInfo> {
 }
 
 class FormAndress extends StatefulWidget {
-  void setAndress(street, neighborhood, city) {
+  void setAndress(street, area, city) {
     _streetController.text = street;
-    _neighborhoodController.text = neighborhood;
+    _areaController.text = area;
     _cityController.text = city;
+  }
+
+  String getCep() {
+    _cepController.updateMask('00000000');
+    var cep = _cepController.text;
+    _cepController.updateMask('00000-000');
+    return cep;
+  }
+
+  String getStreet() {
+    return _streetController.text;
+  }
+
+  String getArea() {
+    return _areaController.text;
+  }
+
+  String getNumber() {
+    return _houseNumberController.text;
+  }
+
+  String getComplementAddress() {
+    return _complementAddressController.text;
   }
 
   @override
@@ -67,12 +90,12 @@ class _FormAndressState extends State<FormAndress> {
 
   final _labelCep = "CEP";
   final _labelStreet = "Logradouro";
-  final _labelNeighborhood = "Bairro";
+  final _labelArea = "Bairro";
   final _labelHouseNumber = "Número";
-  final _labelAdditionalAddress = "Complemento";
+  final _labelComplementAddress = "Complemento";
 
   var _readOnlyStreet = true;
-  var _readOnlyNeighborhood = true;
+  var _readOnlyarea = true;
 
   FocusNode focusCepForHouseNumber;
   FocusNode focusHouseNumberForAddAndress;
@@ -144,21 +167,21 @@ class _FormAndressState extends State<FormAndress> {
         SizedBox(height: 5),
         TextFormField(
           validator: (value) {
-            return NeighborhoodValidator().validate(value);
+            return AreaValidator().validate(value);
           },
-          readOnly: _readOnlyNeighborhood,
+          readOnly: _readOnlyarea,
           keyboardType: TextInputType.text,
-          controller: _neighborhoodController,
+          controller: _areaController,
           decoration: InputDecoration(
             prefixIcon: Icon(FontAwesomeIcons.city),
             suffixIcon: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
                   setState(() {
-                    _readOnlyNeighborhood = false;
+                    _readOnlyarea = false;
                   });
                 }),
-            labelText: _labelNeighborhood,
+            labelText: _labelArea,
             border: OutlineInputBorder(),
           ),
         ),
@@ -192,11 +215,11 @@ class _FormAndressState extends State<FormAndress> {
                   },
                   focusNode: focusHouseNumberForAddAndress,
                   keyboardType: TextInputType.text,
-                  controller: _additionalAddressController,
+                  controller: _complementAddressController,
                   decoration: InputDecoration(
                     helperText: " ",
                     prefixIcon: Icon(FontAwesomeIcons.home),
-                    labelText: _labelAdditionalAddress,
+                    labelText: _labelComplementAddress,
                     border: OutlineInputBorder(),
                   ),
                 ),

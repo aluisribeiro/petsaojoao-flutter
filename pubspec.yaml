@@ -46,8 +46,6 @@ dependencies:
   carousel_slider: ^2.1.0
   material_design_icons_flutter: 4.0.5245
 
-
-
 #Icone do Aplicativo
 #Use comando seguinte para carregar o icon do app >flutter packages pub run flutter_launcher_icons:main<
 flutter_icons:
