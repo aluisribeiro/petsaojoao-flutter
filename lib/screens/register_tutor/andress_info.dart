@@ -60,7 +60,9 @@ class FormAndress extends StatefulWidget {
 
   String getCep() {
     _cepController.updateMask('00000000');
-    return _cepController.text;
+    var cep = _cepController.text;
+    _cepController.updateMask('00000-000');
+    return cep;
   }
 
   String getStreet() {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:async';
 
 import '../base_url.dart';
 
@@ -37,17 +38,28 @@ class ApiRestTutor {
     var _body = json.encode(params);
     print("Send Json : $_body");
 
-    var response = await http.post(url, headers: header, body: _body);
+    final http.Response response = await http
+        .post(url, headers: header, body: _body)
+        .timeout(Duration(seconds: 10), onTimeout: () {
+      return null;
+    });
 
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    if (response == null) {
+      return false;
+    } else {
+      if (response.statusCode == 200) {
+        //print('Response status: ${response.statusCode}');
+        // print('Response body: ${response.body}');
 
-    Map mapResponse = json.decode(response.body);
+        //Map mapResponse = json.decode(response.body);
 
-    String mensagem = mapResponse["message"];
+        //String mensagem = mapResponse["message"];
 
-    print("message $mensagem");
-
-    return true;
+        //print("message $mensagem");
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 }

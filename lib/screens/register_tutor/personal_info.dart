@@ -71,12 +71,16 @@ class FormPersonal extends StatefulWidget {
 
   String getRg() {
     _rgController.updateMask("00000000");
-    return _rgController.text;
+    var rg = _rgController.text;
+    _rgController.updateMask("00.000.000");
+    return rg;
   }
 
   String getCpf() {
     _cpfController.updateMask("00000000000");
-    return _cpfController.text;
+    var cpf = _cpfController.text;
+    _cpfController.updateMask("000.000.000-00");
+    return cpf;
   }
 
   @override

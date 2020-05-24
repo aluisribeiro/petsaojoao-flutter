@@ -53,12 +53,16 @@ class FormContact extends StatefulWidget {
 
   String getPhone() {
     _phoneController.updateMask("00000000000");
-    return _phoneController.text;
+    var phone = _phoneController.text;
+    _phoneController.updateMask("(00) 0000-00000");
+    return phone;
   }
 
   String getWhatsapp() {
     _whatsappController.updateMask("00000000000");
-    return _whatsappController.text;
+    var whatsapp = _whatsappController.text;
+    _whatsappController.updateMask("(00) 0 0000-0000");
+    return whatsapp;
   }
 
   @override
