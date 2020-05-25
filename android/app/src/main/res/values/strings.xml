@@ -1,0 +1,8 @@
+ <resources>
+    <string name="app_name">petsaojoao</string>
+
+    <string name="facebook_app_id">851053548737170</string>
+
+    
+    <string name="fb_login_protocol_scheme">fb851053548737170</string>
+</resources>
