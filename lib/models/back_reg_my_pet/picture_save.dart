@@ -1,29 +1,31 @@
-import 'package:petsaojoao/models/back_reg_my_pet/picture_info.dart';
+import 'package:petsaojoao/models/back_reg_my_pet/picture_information.dart';
 
-pictureSave(_initializeControllerFuture, _num, _controller) async {
-  try {
-    await _initializeControllerFuture;
+class Picture {
+  save(_initializeControllerFuture, _num, _controller) async {
+    try {
+      await _initializeControllerFuture;
 
-    if (_num == 1) {
-      final path = await getFirstPic();
+      if (_num == 1) {
+        final path = await PictureInformation().getFirst();
 
-      await verifyPicPath(path);
+        await PictureInformation().verifyPath(path);
 
-      await _controller.takePicture(path);
-    } else if (_num == 2) {
-      final path = await getSecondPic();
+        await _controller.takePicture(path);
+      } else if (_num == 2) {
+        final path = await PictureInformation().getSecond();
 
-      await verifyPicPath(path);
+        await PictureInformation().verifyPath(path);
 
-      await _controller.takePicture(path);
-    } else if (_num == 3) {
-      final path = await getThirdPic();
+        await _controller.takePicture(path);
+      } else if (_num == 3) {
+        final path = await PictureInformation().getThird();
 
-      await verifyPicPath(path);
+        await PictureInformation().verifyPath(path);
 
-      await _controller.takePicture(path);
+        await _controller.takePicture(path);
+      }
+    } catch (e) {
+      print(e);
     }
-  } catch (e) {
-    print(e);
   }
 }

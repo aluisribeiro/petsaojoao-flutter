@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 
 import 'package:petsaojoao/models/back_reg_my_pet/orientation_organize.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/sizes_info.dart';
-import 'package:petsaojoao/models/back_reg_my_pet/picture_miniatures.dart';
+import 'package:petsaojoao/models/back_reg_my_pet/miniatures.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/picture_save.dart';
+
+import '../../models/back_reg_my_pet/camera_functions.dart';
+import '../../models/back_reg_my_pet/miniatures.dart';
+import '../../models/back_reg_my_pet/picture_save.dart';
 
 class TakePicture extends StatefulWidget {
   final CameraDescription camera;
@@ -76,11 +80,12 @@ class _TakePictureState extends State<TakePicture> {
               return ListView(
                 children: <Widget>[
                   Container(
-                    height: widgetSize(context, 1.55),
-                    width: widgetSize(context, 1.5),
+                    height: CalculateSize().by(context, 1.55),
+                    width: CalculateSize().by(context, 1.5),
                     child: CameraPreview(_controller),
                   ),
-                  pictureMiniatures(context, _num, _image1, _image2, _deleting),
+                  Miniatures()
+                      .selector(context, _num, _image1, _image2, _deleting),
                   Divider(
                     color: Colors.black,
                     thickness: 1.5,
@@ -96,16 +101,10 @@ class _TakePictureState extends State<TakePicture> {
           child: Icon(Icons.camera_alt),
           onPressed: () async {
             try {
+              await Picture()
+                  .save(_initializeControllerFuture, _num, _controller);
 
-              await pictureSave(_initializeControllerFuture, _num, _controller);
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                  _nextPage,
-                ),
-              );
+              CameraFunctions().ifRedirect(context, _deleting, _nextPage);
             } catch (e) {
               print(e);
             }
