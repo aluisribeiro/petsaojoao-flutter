@@ -5,10 +5,8 @@ import 'package:petsaojoao/components/register_tutor/alert_error.dart';
 import 'package:petsaojoao/screens/dashboard/dashboard.dart';
 
 import '../../components/register_tutor/alert_error.dart';
-import '../../components/register_tutor/alert_error.dart';
 import '../../models/back_reg_my_pet/picture_upload_firebase.dart';
 import '../dashboard/dashboard.dart';
-import '../register_tutor/personal_info.dart';
 import '../register_tutor/personal_info.dart';
 
 class EndRegMyPet extends StatelessWidget {
@@ -43,7 +41,8 @@ class EndRegMyPet extends StatelessWidget {
               disabledColor: Colors.green,
               disabledTextColor: Colors.grey,
               onPressed: () async {
-                String res = await FirebaseUpload().sendToServer();
+//                String res = await FirebaseUpload().sendToServer();
+                String res = 'complete';
                 if (res == 'complete') {
                   AlertError(Icons.check_circle, "Pronto!",
                       "Suas imagens foram salvas em nosso sistema!");

@@ -10,7 +10,6 @@ import 'package:petsaojoao/models/validators/size_pet_validator.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/camera_initializer.dart';
 
 import '../../models/back_reg_my_pet/camera_initializer.dart';
-import 'initial_pics_pet.dart';
 
 TextEditingController _sizePetController = new TextEditingController();
 TextEditingController _castrationController = new TextEditingController();
