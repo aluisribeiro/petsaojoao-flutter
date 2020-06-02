@@ -7,6 +7,7 @@ import 'package:petsaojoao/models/back_reg_my_pet/sizes_info.dart';
 
 import 'package:petsaojoao/components/reg_my_pet/alert_confirm.dart';
 
+import '../../models/back_reg_my_pet/sizes_info.dart';
 import 'end_reg_my_pet.dart';
 
 class ConfirmScreen extends StatefulWidget {
@@ -55,21 +56,21 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               children: <Widget>[
                 Center(
                   child: Container(
-                    height: widgetSize(context, 1.55),
+                    height: CalculateSize().by(context, 1.55),
                     child: new Image.file(File(bigImage)),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.only(
-                      left: widgetSize(context, 50),
-                      top: widgetSize(context, 1.75)),
+                      left: CalculateSize().by(context, 50),
+                      top: CalculateSize().by(context, 1.75)),
                   child: FlatButton(
                     onPressed: () {
                       ConfirmAlert().showAlert(context, num);
                     },
                     child: Icon(
                       Icons.delete,
-                      size: widgetSize(context, 18),
+                      size: CalculateSize().by(context, 18),
                       color: Colors.red[200],
                     ),
                   ),
@@ -84,7 +85,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: Text(
                       "3 de 3 ",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                     ),
                   ),
                   Container(
@@ -101,12 +102,12 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    height: widgetSize(context, 10),
+                    height: CalculateSize().by(context, 10),
                     padding: EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
                         setState(
-                          () {
+                              () {
                             bigImage = image1;
                             num = 1;
                           },
@@ -116,12 +117,12 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     ),
                   ),
                   Container(
-                    height: widgetSize(context, 10),
+                    height: CalculateSize().by(context, 10),
                     padding: EdgeInsets.only(right: 20),
                     child: InkWell(
                       onTap: () {
                         setState(
-                          () {
+                              () {
                             bigImage = image2;
                             num = 2;
                           },
@@ -131,11 +132,11 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     ),
                   ),
                   Container(
-                    height: widgetSize(context, 10),
+                    height: CalculateSize().by(context, 10),
                     child: InkWell(
                       onTap: () {
                         setState(
-                          () {
+                              () {
                             bigImage = image3;
                             num = 3;
                           },
