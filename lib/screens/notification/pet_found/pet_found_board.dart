@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class PetFound extends StatefulWidget {
+class PetFoundBoard extends StatefulWidget {
   @override
-  _PetFoundState createState() => _PetFoundState();
+  _PetFoundBoardState createState() => _PetFoundBoardState();
 }
 
-class _PetFoundState extends State<PetFound> {
+class _PetFoundBoardState extends State<PetFoundBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +18,7 @@ class _PetFoundState extends State<PetFound> {
         child: ListView(
           children: <Widget>[
             CarouselWithIndicatorDemo(),
-            InfoPetFound(),
+            InfoPetFoundBoard(),
             IconsForContact(),
             ThisYourPet(),
           ],
@@ -27,17 +28,17 @@ class _PetFoundState extends State<PetFound> {
   }
 }
 
-class InfoPetFound extends StatefulWidget {
+class InfoPetFoundBoard extends StatefulWidget {
   @override
-  _InfoPetFoundState createState() => _InfoPetFoundState();
+  _InfoPetFoundBoardState createState() => _InfoPetFoundBoardState();
 }
 
-class _InfoPetFoundState extends State<InfoPetFound> {
+class _InfoPetFoundBoardState extends State<InfoPetFoundBoard> {
   String date = "";
   String hour = "";
   String name = "";
 
-  final _labelPetFound = "Pet encontrado";
+  final _labelPetFoundBoard = "Pet encontrado";
   final _fontFamilyRoboto = 'Roboto';
 
   @override
@@ -48,7 +49,7 @@ class _InfoPetFoundState extends State<InfoPetFound> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             Text(
-              _labelPetFound,
+              _labelPetFoundBoard,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24.0,
@@ -94,7 +95,7 @@ class _IconsForContactState extends State<IconsForContact> {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              print("icone1");
+              _launchWhatsapp();
             },
             child: Icon(
               MdiIcons.whatsapp,
@@ -104,7 +105,7 @@ class _IconsForContactState extends State<IconsForContact> {
           ),
           GestureDetector(
             onTap: () {
-              print("icone2");
+              _makeCall();
             },
             child: Icon(
               Icons.call,
@@ -114,7 +115,7 @@ class _IconsForContactState extends State<IconsForContact> {
           ),
           GestureDetector(
             onTap: () {
-              print("icone3");
+              _createEmail();
             },
             child: Icon(
               Icons.email,
@@ -193,5 +194,34 @@ class _ThisYourPetState extends State<ThisYourPet> {
         ],
       )
     ]);
+  }
+}
+
+void _launchWhatsapp() async {
+  const whatsapp = 'https://wa.me/982982891';
+  if (await canLaunch(whatsapp)) {
+    await launch(whatsapp);
+  } else {
+    throw 'Could not launch $whatsapp';
+  }
+}
+
+void _makeCall() async{
+  const phonenumber = "tel:982982891";
+
+  if(await canLaunch(phonenumber)) {
+    await launch(phonenumber);
+  } else {
+    throw 'Could not call';
+  }
+}
+
+void _createEmail() async{
+  const emailaddress = 'mailto:otto.spreng@sou.unifeob.edu.br?subject=Sample Subject&body=This is a Sample email';
+
+  if(await canLaunch(emailaddress)) {
+    await launch(emailaddress);
+  }  else {
+    throw 'Could not Email';
   }
 }
