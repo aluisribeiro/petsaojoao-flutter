@@ -133,9 +133,7 @@ class ClipWavy extends StatelessWidget {
         height: 350,
         color: Colors.blueAccent[200],
       ),
-
 //      width: double.maxFinite, height: 303,
-
     );
   }
 }
@@ -233,7 +231,6 @@ class SocialLogin extends StatelessWidget {
                 );
               },
             ),
-
           ),
         ]
     );
