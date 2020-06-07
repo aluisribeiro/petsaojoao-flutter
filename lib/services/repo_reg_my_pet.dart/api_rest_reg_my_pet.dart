@@ -5,35 +5,14 @@ import 'package:petsaojoao/services/repo_reg_tutor/standard_tutor.dart';
 import 'dart:async';
 import '../base_url.dart';
 
-class ApiRestTutor {
-  static Future<StandardTutor> post(
-      String email,
-      String name,
-      String rg,
-      String cpf,
-      String phone,
-      String whatsapp,
-      String cep,
-      String street,
-      String number,
-      String area,
-      String complement) async {
-    var url = "$BASE_URL/tutors";
+class ApiRestRegMyPet {
+  static Future<StandardTutor> postSpecies(String name) async {
+    var url = "$BASE_URL/species";
 
     var header = {"Content-Type": "application/json"};
 
     Map params = {
-      'email': email,
       'name': name,
-      'rg': rg,
-      'cpf': cpf,
-      'phone': phone,
-      'whatsapp': whatsapp,
-      'cep': cep,
-      'street': street,
-      'number': number,
-      'area': area,
-      'complement': complement
     };
 
     var _body = json.encode(params);
