@@ -71,6 +71,13 @@ flutter:
     - assets/background/top_paws.png
     - assets/background/bottom_paws.png
     - assets/reg_my_pet/side_dog.png
+    - assets/login/gmail.png
+    - assets/login/twitter.png
+    - assets/login/facebook.png
+    - assets/login/logoDogWhite.png
+    - assets/login/legs.png
+    - assets/login/logo-unifeob.png
+    - assets/login/townhall.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
