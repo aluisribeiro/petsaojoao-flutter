@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:petsaojoao/models/back_reg_my_pet/orientation_organize.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/sizes_info.dart';
+import 'package:petsaojoao/models/back_reg_my_pet/picture_upload_firebase.dart';
+import 'package:petsaojoao/components/register_tutor/alert_error.dart';
 
 import 'package:petsaojoao/components/reg_my_pet/alert_confirm.dart';
 
 import '../../models/back_reg_my_pet/sizes_info.dart';
-import 'end_reg_my_pet.dart';
 
 class ConfirmScreen extends StatefulWidget {
   final String image1;
@@ -66,7 +66,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       top: CalculateSize().by(context, 1.75)),
                   child: FlatButton(
                     onPressed: () {
-                      ConfirmAlert().showAlert(context, num);
+                      PopUpSelector().showDelete(context, num);
                     },
                     child: Icon(
                       Icons.delete,
@@ -85,7 +85,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: Text(
                       "3 de 3 ",
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                     ),
                   ),
                   Container(
@@ -107,7 +107,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: InkWell(
                       onTap: () {
                         setState(
-                              () {
+                          () {
                             bigImage = image1;
                             num = 1;
                           },
@@ -122,7 +122,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: InkWell(
                       onTap: () {
                         setState(
-                              () {
+                          () {
                             bigImage = image2;
                             num = 2;
                           },
@@ -136,7 +136,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: InkWell(
                       onTap: () {
                         setState(
-                              () {
+                          () {
                             bigImage = image3;
                             num = 3;
                           },
@@ -158,15 +158,15 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.check),
           onPressed: () async {
-            releaseOrientation();
-
             try {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EndRegMyPet(),
-                ),
-              );
+              String res = await FirebaseUpload().sendToServer(context);
+              if (res == 'complete') {
+                PopUpSelector().showRedirect(context);
+              } else {
+                AlertError(Icons.broken_image, "Erro",
+                        "Um erro ocorreu, não pudemos salvar sus imagens")
+                    .showAlert(context);
+              }
             } catch (e) {
               print(e);
             }
