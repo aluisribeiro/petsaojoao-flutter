@@ -113,9 +113,8 @@ class ClipHome extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return null;
+    return false;
   }
-
 }
 
 class ClipWavy extends StatelessWidget {
@@ -124,15 +123,15 @@ class ClipWavy extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipPath(
       clipper: ClipHome(),
-
       child: Container(
         child: Opacity(
           opacity: 0.35,
           child: _imgPaws,
         ),
-        height: 350,
+       height: 350,
         color: Colors.blueAccent[200],
       ),
+
 //      width: double.maxFinite, height: 303,
     );
   }
@@ -144,10 +143,16 @@ class LogoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-          top: 50),
+          top: 60
+      ),
       height: 170,
       width: double.maxFinite,
       alignment: Alignment.center,
+//        decoration: BoxDecoration(
+//          gradient: RadialGradient(
+//              colors: [Colors.white70, Colors.white]
+//          ),
+//        ),
       child: _imgLogo,
     );
   }
