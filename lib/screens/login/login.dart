@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:petsaojoao/models/utils_firebase/firebase_facebook.dart';
 import 'package:petsaojoao/screens/dashboard/dashboard.dart';
+import '../../models/utils_firebase/firebase_auth.dart';
+import '../dashboard/dashboard.dart';
 import '../dashboard/dashboard.dart';
 import '../register_tutor/personal_info.dart';
 
@@ -181,13 +184,15 @@ class SocialLogin extends StatelessWidget {
                 height: 50,
                 width: 50,
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Dashboard()
-                  ),
-                );
+              onPressed: () async {
+                signUpWithFacebook().whenComplete(() => {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context){
+                        return Dashboard();
+                      } )
+                  )
+                });
               },
             ),
           ),
@@ -205,12 +210,15 @@ class SocialLogin extends StatelessWidget {
                 height: 50,
                 width: 50,
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Dashboard()),
-                );
+              onPressed: () async {
+                signInWithGoogle().whenComplete(() => {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context){
+                        return Dashboard();
+                      } )
+                  )
+                });
               },
             ),
           ),
