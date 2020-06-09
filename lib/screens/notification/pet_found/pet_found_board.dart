@@ -198,7 +198,7 @@ class _ThisYourPetState extends State<ThisYourPet> {
 }
 
 void _launchWhatsapp() async {
-  const whatsapp = 'https://wa.me/982982891';
+  const whatsapp = 'https://wa.me/5519982982891';
   if (await canLaunch(whatsapp)) {
     await launch(whatsapp);
   } else {
