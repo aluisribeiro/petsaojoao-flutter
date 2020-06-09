@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:petsaojoao/screens/dashboard/dashboard.dart';
+import '../../models/utils_firebase/firebase_auth.dart';
 import '../dashboard/dashboard.dart';
 import '../register_tutor/personal_info.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+
 
 //Acompanhe desing do projeto aqui --> https://www.figma.com/file/GYFrt79mzIbOUXXmFyDgwL/Material-Baseline-Design-Kit?node-id=38%3A5814
 
@@ -182,7 +186,8 @@ class SocialLogin extends StatelessWidget {
                 width: 50,
               ),
               onPressed: () {
-                Navigator.push(
+                  //signUpWithFacebook();
+                  Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => Dashboard()
@@ -205,7 +210,10 @@ class SocialLogin extends StatelessWidget {
                 height: 50,
                 width: 50,
               ),
-              onPressed: () {
+              onPressed: () async {
+                bool res = await AuthProvider().loginWithGoogle();
+                  if(!res)
+                    print("error logging in with google");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
