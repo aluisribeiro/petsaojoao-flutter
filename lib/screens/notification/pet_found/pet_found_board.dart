@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:petsaojoao/models/back_pet_found/buttom_functions.dart';
 
 class PetFoundBoard extends StatefulWidget {
   @override
@@ -95,7 +95,7 @@ class _IconsForContactState extends State<IconsForContact> {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              _launchWhatsapp();
+              buttomFunctions().launchWhatsapp();
             },
             child: Icon(
               MdiIcons.whatsapp,
@@ -105,7 +105,7 @@ class _IconsForContactState extends State<IconsForContact> {
           ),
           GestureDetector(
             onTap: () {
-              _makeCall();
+              buttomFunctions().makeCall();
             },
             child: Icon(
               Icons.call,
@@ -115,7 +115,7 @@ class _IconsForContactState extends State<IconsForContact> {
           ),
           GestureDetector(
             onTap: () {
-              _createEmail();
+              buttomFunctions().createEmail();
             },
             child: Icon(
               Icons.email,
@@ -197,31 +197,3 @@ class _ThisYourPetState extends State<ThisYourPet> {
   }
 }
 
-void _launchWhatsapp() async {
-  const whatsapp = 'https://wa.me/5519982982891';
-  if (await canLaunch(whatsapp)) {
-    await launch(whatsapp);
-  } else {
-    throw 'Could not launch $whatsapp';
-  }
-}
-
-void _makeCall() async{
-  const phonenumber = "tel:982982891";
-
-  if(await canLaunch(phonenumber)) {
-    await launch(phonenumber);
-  } else {
-    throw 'Could not call';
-  }
-}
-
-void _createEmail() async{
-  const emailaddress = 'mailto:otto.spreng@sou.unifeob.edu.br?subject=Sample Subject&body=This is a Sample email';
-
-  if(await canLaunch(emailaddress)) {
-    await launch(emailaddress);
-  }  else {
-    throw 'Could not Email';
-  }
-}
