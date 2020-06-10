@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:petsaojoao/models/back_reg_my_pet/delete_function.dart';
+import 'package:petsaojoao/models/back_reg_my_pet/camera_functions.dart';
+
+import '../../models/back_reg_my_pet/camera_functions.dart';
 
 class ConfirmAlert {
   var icon = Icons.delete;
@@ -35,7 +37,7 @@ class ConfirmAlert {
               ),
               FlatButton(
                 onPressed: () {
-                  takePicture(context, num);
+                  CameraFunctions().deletePicture(context, num);
                 },
                 child: Text(
                   "Sim",

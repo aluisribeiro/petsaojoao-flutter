@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:petsaojoao/components/foundation_form/splash_screen_foundation.dart';
 import 'my_pet_info_first.dart';
 
-class RegPet extends StatefulWidget {
+class RegMyPet extends StatefulWidget {
   @override
-  _RegPetState createState() => _RegPetState();
+  _RegMyPetState createState() => _RegMyPetState();
 }
 
-class _RegPetState extends State<RegPet> {
+class _RegMyPetState extends State<RegMyPet> {
   void navigationToNextPage() {
     //Navigator.push(context, _createRoute());
     Navigator.pushReplacement(context, _createRoute());

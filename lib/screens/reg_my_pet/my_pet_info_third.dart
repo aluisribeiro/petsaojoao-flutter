@@ -7,9 +7,9 @@ import 'package:petsaojoao/components/foundation_form/data_security_info.dart';
 import 'package:petsaojoao/models/validators/castration_validator.dart';
 import 'package:petsaojoao/models/validators/microchip_validator.dart';
 import 'package:petsaojoao/models/validators/size_pet_validator.dart';
-import 'package:petsaojoao/models/back_reg_my_pet/camera_initializer_button.dart';
+import 'package:petsaojoao/models/back_reg_my_pet/camera_initializer.dart';
 
-import 'initial_pics_pet.dart';
+import '../../models/back_reg_my_pet/camera_initializer.dart';
 
 TextEditingController _sizePetController = new TextEditingController();
 TextEditingController _castrationController = new TextEditingController();
@@ -87,7 +87,7 @@ class _FormMyPetInfoThirdState extends State<FormMyPetInfoThird> {
           ),
           ButtonConfirmForm(() {
             if (_myPetInfoThirdFormKey.currentState.validate()) {
-              cameraInitializer(context);
+              CameraInitializer().init(context);
             }
           })
         ]),

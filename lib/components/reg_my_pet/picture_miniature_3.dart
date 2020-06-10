@@ -29,12 +29,12 @@ pictureMiniatureThree(context, image1, image2) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                height: widgetSize(context, 10),
+                height: CalculateSize().by(context, 10),
                 padding: EdgeInsets.only(right: 20),
                 child: Image.file(File(image1)),
               ),
               Container(
-                height: widgetSize(context, 10),
+                height: CalculateSize().by(context, 10),
                 child: Image.file(File(image2)),
               ),
             ],

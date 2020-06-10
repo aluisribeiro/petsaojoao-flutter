@@ -23,7 +23,7 @@ pictureMiniatureFour(context) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                height: widgetSize(context, 10),
+                height: CalculateSize().by(context, 10),
               ),
             ],
           ),
