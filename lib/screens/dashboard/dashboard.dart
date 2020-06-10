@@ -4,7 +4,7 @@ import 'package:petsaojoao/screens/reg_my_pet/reg_my_pet.dart';
 import 'package:petsaojoao/screens/animal_reg_found/animal_reg_found.dart';
 import 'package:petsaojoao/screens/register_tutor/register_tutor.dart';
 
-import '../notification/pet_found/pet_found.dart';
+import '../notification/pet_found/pet_found_board.dart';
 
 //Acompanhe desing do projeto aqui --> https://www.figma.com/file/GYFrt79mzIbOUXXmFyDgwL/Material-Baseline-Design-Kit?node-id=38%3A5814
 
@@ -57,7 +57,7 @@ class Dashboard extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PetFound()),
+                    MaterialPageRoute(builder: (context) => PetFoundBoard()),
                   );
                 },
                 child: Text("Pet Notification ")),
