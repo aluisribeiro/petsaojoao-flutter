@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "427486433240",
-    "firebase_url": "https://testando-a743b.firebaseio.com",
-    "project_id": "testando-a743b",
-    "storage_bucket": "testando-a743b.appspot.com"
+    "project_number": "1041118097327",
+    "firebase_url": "https://petsaojoao-86487.firebaseio.com",
+    "project_id": "petsaojoao-86487",
+    "storage_bucket": "petsaojoao-86487.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:427486433240:android:09c5504f55052dec20acad",
+        "mobilesdk_app_id": "1:1041118097327:android:9463fbcd74f9a0f431495a",
         "android_client_info": {
-          "package_name": "br.com.petsaojoao.petsaojoao"
+          "package_name": "Social.login"
         }
       },
       "oauth_client": [
         {
-          "client_id": "427486433240-0gqpmuv07lhfa0v51q0ecu0kflorr6d5.apps.googleusercontent.com",
+          "client_id": "1041118097327-31doeq66qkj3c7qh0goqrd2s2vd666tm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "Social.login",
+            "certificate_hash": "e49efccb00d3c045046b23de7ae9652d0d624350"
+          }
+        },
+        {
+          "client_id": "1041118097327-nhuljqr0ihjstc7lvn7nrp2c2i5b2gmn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDbu0vInePNmEfUkDIvT4vcCWpaUeDBKOA"
+          "current_key": "AIzaSyBK_LttuZkOPVIESOaygjfYFbCWK-IBG04"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "427486433240-0gqpmuv07lhfa0v51q0ecu0kflorr6d5.apps.googleusercontent.com",
+              "client_id": "1041118097327-nhuljqr0ihjstc7lvn7nrp2c2i5b2gmn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
