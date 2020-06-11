@@ -1,0 +1,196 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:petsaojoao/components/foundation_form/appbar_foundation.dart';
+import 'package:petsaojoao/components/foundation_form/reg_body_foundation.dart';
+import 'package:petsaojoao/components/foundation_form/button_confirmForm.dart';
+import 'package:petsaojoao/components/foundation_form/info_data.dart';
+import 'package:petsaojoao/models/validators/reg_email_validator.dart';
+import 'package:petsaojoao/models/validators/reg_phone_validator.dart';
+import 'package:petsaojoao/models/validators/whatsapp_validator.dart';
+import 'end_animal_reg_found.dart';
+
+TextEditingController _emailController = new TextEditingController();
+var _phoneController = new MaskedTextController(mask: "(00) 0000-00000");
+var _whatsappController = new MaskedTextController(mask: "(00) 0 0000-0000");
+
+class ContactInfo extends StatefulWidget {
+  @override
+  _ContactInfoState createState() => _ContactInfoState();
+}
+
+class _ContactInfoState extends State<ContactInfo> {
+  String questionTittle = "Como te contactamos?";
+  var arrowBackIcon = Icons.arrow_back;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: PreferredSize(
+            child: AppBarFoundation(arrowBackIcon),
+            preferredSize: Size.fromHeight(50.0)),
+        body: ListView(children: <Widget>[
+          RegBodyFoundation(questionTittle),
+          SizedBox(height: 10.0),
+          InfoData(),
+          SizedBox(height: 20),
+          SizedBox(height: 10.0),
+          Container(
+            padding: EdgeInsets.only(
+              left: 15,
+              right: 15,
+            ),
+            child: FormContact(),
+          ),
+        ]));
+  }
+}
+
+class FormContact extends StatefulWidget {
+  String getEmail() {
+    return _emailController.text;
+  }
+
+  String getPhone() {
+    _phoneController.updateMask("00000000000");
+    var phone = _phoneController.text;
+    _phoneController.updateMask("(00) 0000-00000");
+    return phone;
+  }
+
+  String getWhatsapp() {
+    _whatsappController.updateMask("00000000000");
+    var whatsapp = _whatsappController.text;
+    _whatsappController.updateMask("(00) 0 0000-0000");
+    return whatsapp;
+  }
+
+  @override
+  _FormContactState createState() => _FormContactState();
+}
+
+class _FormContactState extends State<FormContact> {
+  final _contactFormKey = GlobalKey<FormState>();
+
+  final _labelEmail = "E-mail";
+  final _labelPhone = "Telefone";
+  final _labelWhatsapp = "Whatsapp";
+  final _helperTextOptional = "Opcional";
+
+  bool _showEmail = true;
+  bool _showPhone = true;
+  bool _showWhatsapp = true;
+
+  FocusNode focusEmailForPhone;
+  FocusNode focusPhoneForWhatsapp;
+
+  void initState() {
+    super.initState();
+
+    focusEmailForPhone = FocusNode();
+    focusPhoneForWhatsapp = FocusNode();
+  }
+
+  void dispose() {
+    super.dispose();
+
+    focusEmailForPhone.dispose();
+    focusPhoneForWhatsapp.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _contactFormKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            onEditingComplete: focusEmailForPhone.requestFocus,
+            validator: (value) {
+              return RegEmailValidator().validate(value);
+            },
+            keyboardType: TextInputType.text,
+            controller: _emailController,
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.email),
+              labelText: _labelEmail,
+              border: OutlineInputBorder(),
+              suffixIcon: GestureDetector(
+                  child: Icon(_showEmail == false
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                  onTap: () {
+                    setState(() {
+                      _showEmail = !_showEmail;
+                    });
+                  }),
+            ),
+            obscureText: _showEmail == false ? true : false,
+          ),
+          SizedBox(height: 30),
+          TextFormField(
+            onEditingComplete: focusPhoneForWhatsapp.requestFocus,
+            focusNode: focusEmailForPhone,
+            validator: (value) {
+              return RegPhoneValidator().validate(value);
+            },
+            onChanged: (value) {
+              if (_phoneController.text.length == 15) {
+                _phoneController.updateMask("(00) 0 0000-0000");
+              }
+            },
+            keyboardType: TextInputType.number,
+            controller: _phoneController,
+            decoration: InputDecoration(
+              helperText: _helperTextOptional,
+              prefixIcon: Icon(Icons.phone),
+              labelText: _labelPhone,
+              border: OutlineInputBorder(),
+              suffixIcon: GestureDetector(
+                  child: Icon(_showPhone == false
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                  onTap: () {
+                    setState(() {
+                      _showPhone = !_showPhone;
+                    });
+                  }),
+            ),
+            obscureText: _showPhone == false ? true : false,
+          ),
+          SizedBox(height: 20),
+          TextFormField(
+            focusNode: focusPhoneForWhatsapp,
+            validator: (value) {
+              return WhatsappValidator().validate(value);
+            },
+            keyboardType: TextInputType.number,
+            controller: _whatsappController,
+            decoration: InputDecoration(
+              helperText: _helperTextOptional,
+              prefixIcon: Icon(FontAwesomeIcons.whatsapp),
+              labelText: _labelWhatsapp,
+              border: OutlineInputBorder(),
+              suffixIcon: GestureDetector(
+                  child: Icon(_showWhatsapp == false
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                  onTap: () {
+                    setState(() {
+                      _showWhatsapp = !_showWhatsapp;
+                    });
+                  }),
+            ),
+            obscureText: _showWhatsapp == false ? true : false,
+          ),
+          SizedBox(height: 30),
+          ButtonConfirmForm(() {
+            if (_contactFormKey.currentState.validate()) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EndAnimalRegFound()));
+            }
+          }),
+        ],
+      ),
+    );
+  }
+}
