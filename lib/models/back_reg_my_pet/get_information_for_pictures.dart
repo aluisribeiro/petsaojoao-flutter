@@ -1,12 +1,12 @@
 class GetInformation {
   getTutorId() {
-    int tutorId = 0;
+    int tutorId = 1;
 
     return tutorId;
   }
 
   getPetId() {
-    int petId = 0;
+    int petId = 1;
 
     return petId;
   }

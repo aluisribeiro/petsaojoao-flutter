@@ -7,9 +7,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/get_information_for_pictures.dart';
 import 'package:petsaojoao/components/reg_my_pet/alert_confirm.dart';
 
+import 'package:petsaojoao/services/repo_reg_my_pet.dart/api_rest_reg_my_pet_photos.dart';
+
 class FirebaseUpload {
-  sendToServer(context) async {
-    PopUpSelector().showLoading(context);
+  sendToServer() async {
     int _tutorId = await GetInformation().getTutorId();
     int _petId = await GetInformation().getPetId();
 
@@ -26,42 +27,68 @@ class FirebaseUpload {
       'PET-img3.png',
     );
 
-    String res = await uploadFirstPicture(pathImg, pathImg2, pathImg3, _tutorId, _petId);
+    String res =
+        await uploadFirstPicture(pathImg, pathImg2, pathImg3, _tutorId, _petId);
     return res;
   }
 
-  Future uploadFirstPicture(
-      String pathImg, String pathImg2, String pathImg3, _tutorId, _petId) async {
-    StorageReference fireBaseStorageRef =
-        FirebaseStorage.instance.ref().child('pet-images/Tutor:$_tutorId - Pet:$_petId - Img1');
+  Future uploadFirstPicture(String pathImg, String pathImg2, String pathImg3,
+      _tutorId, _petId) async {
+    StorageReference fireBaseStorageRef = FirebaseStorage.instance
+        .ref()
+        .child('pet-images/Tutor:$_tutorId - Pet:$_petId - Img1');
     StorageUploadTask uploadTask = fireBaseStorageRef.putFile(File(pathImg));
-
 
     StorageTaskSnapshot imgUpload = await uploadTask.onComplete;
     String imgLink = await imgUpload.ref.getDownloadURL();
 
-    String res = await uploadSecondPicture(pathImg2, pathImg3, _tutorId, _petId);
-    return res;
+    var response = await ApiRestRegMyPetPhoto.post(_petId, imgLink);
+
+    print(response);
+
+    if (response == null) {
+      return null;
+    } else {
+      String res =
+          await uploadSecondPicture(pathImg2, pathImg3, _tutorId, _petId);
+      return res;
+    }
   }
 
-  Future uploadSecondPicture(String pathImg2, String pathImg3, _tutorId, _petId) async {
-    StorageReference fireBaseStorageRef =
-        FirebaseStorage.instance.ref().child('pet-images/Tutor:$_tutorId - Pet:$_petId - Img2');
+  Future uploadSecondPicture(
+      String pathImg2, String pathImg3, _tutorId, _petId) async {
+    StorageReference fireBaseStorageRef = FirebaseStorage.instance
+        .ref()
+        .child('pet-images/Tutor:$_tutorId - Pet:$_petId - Img2');
     StorageUploadTask uploadTask = fireBaseStorageRef.putFile(File(pathImg2));
 
     StorageTaskSnapshot imgUpload = await uploadTask.onComplete;
     String imgLink = await imgUpload.ref.getDownloadURL();
-    String res = await uploadThirdPicture(pathImg3, _tutorId, _petId);
-    return res;
+    var response = await ApiRestRegMyPetPhoto.post(_petId, imgLink);
+
+    if (response == null) {
+      return null;
+    } else {
+      String res =
+      await uploadThirdPicture(pathImg3, _tutorId, _petId);
+      return res;
+    }
   }
 
   Future uploadThirdPicture(String pathImg3, _tutorId, _petId) async {
-    StorageReference fireBaseStorageRef =
-        FirebaseStorage.instance.ref().child('pet-images/Tutor:$_tutorId - Pet:$_petId - Img3');
+    StorageReference fireBaseStorageRef = FirebaseStorage.instance
+        .ref()
+        .child('pet-images/Tutor:$_tutorId - Pet:$_petId - Img3');
     StorageUploadTask uploadTask = fireBaseStorageRef.putFile(File(pathImg3));
 
     StorageTaskSnapshot imgUpload = await uploadTask.onComplete;
     String imgLink = await imgUpload.ref.getDownloadURL();
-    return 'complete';
+    var response = await ApiRestRegMyPetPhoto.post(_petId, imgLink);
+
+    if (response == null) {
+      return null;
+    } else {
+      return 'complete';
+    }
   }
 }

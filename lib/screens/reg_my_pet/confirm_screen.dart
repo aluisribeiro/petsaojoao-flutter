@@ -3,12 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:petsaojoao/models/back_reg_my_pet/sizes_info.dart';
-import 'package:petsaojoao/models/back_reg_my_pet/picture_upload_firebase.dart';
-import 'package:petsaojoao/components/register_tutor/alert_error.dart';
-
 import 'package:petsaojoao/components/reg_my_pet/alert_confirm.dart';
-
 import '../../models/back_reg_my_pet/sizes_info.dart';
+
+import 'package:petsaojoao/screens/reg_my_pet/end_register_pet_photos.dart';
 
 class ConfirmScreen extends StatefulWidget {
   final String image1;
@@ -158,18 +156,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.check),
           onPressed: () async {
-            try {
-              String res = await FirebaseUpload().sendToServer(context);
-              if (res == 'complete') {
-                PopUpSelector().showRedirect(context);
-              } else {
-                AlertError(Icons.broken_image, "Erro",
-                        "Um erro ocorreu, não pudemos salvar sus imagens")
-                    .showAlert(context);
-              }
-            } catch (e) {
-              print(e);
-            }
+            Navigator.push(context, MaterialPageRoute( builder: (contexto) => EndRegisterPetPhotos()));
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
