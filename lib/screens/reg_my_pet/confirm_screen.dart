@@ -2,13 +2,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:petsaojoao/models/back_reg_my_pet/orientation_organize.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/sizes_info.dart';
-
 import 'package:petsaojoao/components/reg_my_pet/alert_confirm.dart';
-
 import '../../models/back_reg_my_pet/sizes_info.dart';
-import 'end_reg_my_pet.dart';
+
+import 'package:petsaojoao/screens/reg_my_pet/end_register_pet_photos.dart';
 
 class ConfirmScreen extends StatefulWidget {
   final String image1;
@@ -66,7 +64,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       top: CalculateSize().by(context, 1.75)),
                   child: FlatButton(
                     onPressed: () {
-                      ConfirmAlert().showAlert(context, num);
+                      PopUpSelector().showDelete(context, num);
                     },
                     child: Icon(
                       Icons.delete,
@@ -85,7 +83,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: Text(
                       "3 de 3 ",
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                     ),
                   ),
                   Container(
@@ -107,7 +105,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: InkWell(
                       onTap: () {
                         setState(
-                              () {
+                          () {
                             bigImage = image1;
                             num = 1;
                           },
@@ -122,7 +120,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: InkWell(
                       onTap: () {
                         setState(
-                              () {
+                          () {
                             bigImage = image2;
                             num = 2;
                           },
@@ -136,7 +134,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     child: InkWell(
                       onTap: () {
                         setState(
-                              () {
+                          () {
                             bigImage = image3;
                             num = 3;
                           },
@@ -158,18 +156,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.check),
           onPressed: () async {
-            releaseOrientation();
-
-            try {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EndRegMyPet(),
-                ),
-              );
-            } catch (e) {
-              print(e);
-            }
+            Navigator.push(context, MaterialPageRoute( builder: (contexto) => EndRegisterPetPhotos()));
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
