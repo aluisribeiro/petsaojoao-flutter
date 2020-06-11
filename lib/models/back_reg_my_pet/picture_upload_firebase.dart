@@ -44,8 +44,6 @@ class FirebaseUpload {
 
     var response = await ApiRestRegMyPetPhoto.post(_petId, imgLink);
 
-    print(response);
-
     if (response == null) {
       return null;
     } else {
