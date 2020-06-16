@@ -1,30 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'dart:async';
 import 'package:petsaojoao/screens/login/login.dart';
-
-//Acompanhe desing do projeto aqui --> https://www.figma.com/file/GYFrt79mzIbOUXXmFyDgwL/Material-Baseline-Design-Kit?node-id=38%3A5814
-
-class SplashScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Pagina de início do app'),
-        ),
-        body: Center(
-          child: Container(
-            child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
-                  );
-                },
-                child: Text("IR PARA PAGINA LOGIN")),
-          ),
-        ),
-      ),
-    );
+ 
+class SplashScreen extends StatefulWidget {
+ @override
+ _SplashScreenState createState() => _SplashScreenState();
+}
+ 
+class _SplashScreenState extends State<SplashScreen> {
+@override
+void initState(){
+  super.initState();
+ 
+  _mockCheckForSession().then(
+    (status){
+      if (status) {
+        _navigateToLogin();
+      } 
+    }
+  );
+}
+ 
+Future<bool> _mockCheckForSession() async {
+  await Future.delayed(Duration(milliseconds: 7000), () {});
+ 
+  return true;
+}
+ 
+void _navigateToLogin(){
+  Navigator.of(context).pushReplacement(
+    MaterialPageRoute(
+      builder:(BuildContext context) => Login()
+       ),
+  );
+}
+ 
+ @override
+ Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+     fit: StackFit.expand,
+     children: <Widget>[
+       Container(
+         color: Colors.blue,
+         child: FlareActor("assets/splash_screen/Paws2.flr",
+             alignment: Alignment.center,
+             fit: BoxFit.contain,
+             animation: "movement"),
+       ),
+       Column(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: <Widget>[
+           Container(
+             width: 130,
+             child: Image.asset("assets/splash_screen/logo.png"),
+           ),
+         ],
+       ),
+     ],
+   ),
+    
+ );
   }
 }

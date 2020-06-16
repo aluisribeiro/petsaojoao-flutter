@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:petsaojoao/models/back_pet_found/buttom_functions.dart';
 
-class PetFound extends StatefulWidget {
+class PetFoundBoard extends StatefulWidget {
   @override
-  _PetFoundState createState() => _PetFoundState();
+  _PetFoundBoardState createState() => _PetFoundBoardState();
 }
 
-class _PetFoundState extends State<PetFound> {
+class _PetFoundBoardState extends State<PetFoundBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +18,7 @@ class _PetFoundState extends State<PetFound> {
         child: ListView(
           children: <Widget>[
             CarouselWithIndicatorDemo(),
-            InfoPetFound(),
+            InfoPetFoundBoard(),
             IconsForContact(),
             ThisYourPet(),
           ],
@@ -27,17 +28,17 @@ class _PetFoundState extends State<PetFound> {
   }
 }
 
-class InfoPetFound extends StatefulWidget {
+class InfoPetFoundBoard extends StatefulWidget {
   @override
-  _InfoPetFoundState createState() => _InfoPetFoundState();
+  _InfoPetFoundBoardState createState() => _InfoPetFoundBoardState();
 }
 
-class _InfoPetFoundState extends State<InfoPetFound> {
+class _InfoPetFoundBoardState extends State<InfoPetFoundBoard> {
   String date = "";
   String hour = "";
   String name = "";
 
-  final _labelPetFound = "Pet encontrado";
+  final _labelPetFoundBoard = "Pet encontrado";
   final _fontFamilyRoboto = 'Roboto';
 
   @override
@@ -48,7 +49,7 @@ class _InfoPetFoundState extends State<InfoPetFound> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             Text(
-              _labelPetFound,
+              _labelPetFoundBoard,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24.0,
@@ -94,7 +95,7 @@ class _IconsForContactState extends State<IconsForContact> {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              print("icone1");
+              buttomFunctions().launchWhatsapp();
             },
             child: Icon(
               MdiIcons.whatsapp,
@@ -104,7 +105,7 @@ class _IconsForContactState extends State<IconsForContact> {
           ),
           GestureDetector(
             onTap: () {
-              print("icone2");
+              buttomFunctions().makeCall();
             },
             child: Icon(
               Icons.call,
@@ -114,7 +115,7 @@ class _IconsForContactState extends State<IconsForContact> {
           ),
           GestureDetector(
             onTap: () {
-              print("icone3");
+              buttomFunctions().createEmail();
             },
             child: Icon(
               Icons.email,
@@ -195,3 +196,4 @@ class _ThisYourPetState extends State<ThisYourPet> {
     ]);
   }
 }
+

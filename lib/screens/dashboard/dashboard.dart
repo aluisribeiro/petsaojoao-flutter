@@ -1,67 +1,123 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:petsaojoao/screens/reg_my_pet/reg_my_pet.dart';
-import 'package:petsaojoao/screens/animal_reg_found/animal_reg_found.dart';
-import 'package:petsaojoao/screens/register_tutor/register_tutor.dart';
+import 'package:petsaojoao/models/dashboard/analytics.dart';
+import 'package:petsaojoao/screens/dashboard/action_card.dart';
+import 'package:petsaojoao/screens/dashboard/dashboard_app_bar.dart';
+import 'package:petsaojoao/screens/dashboard/dashboard_drawer.dart';
+import 'package:petsaojoao/screens/dashboard/info_card.dart';
+import 'package:petsaojoao/services/dashboard/api_rest_analytics.dart';
+import 'constants.dart' as Constants;
 
-import '../notification/pet_found/pet_found.dart';
+class Dashboard extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return DashboardState();
+  }
+}
 
-//Acompanhe desing do projeto aqui --> https://www.figma.com/file/GYFrt79mzIbOUXXmFyDgwL/Material-Baseline-Design-Kit?node-id=38%3A5814
+class DashboardState extends State<Dashboard> {
+  Future<Analytics> futureAnalytics;
 
-class Dashboard extends StatelessWidget {
+  @override
+  void initState() {
+    super.initState();
+    futureAnalytics = ApiRestAnalytics.all();
+  }
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.blueAccent[200],
-    ));
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Dashboard'),
-        ),
-        body: Center(
-          child: ListView(children: <Widget>[
-            FlatButton(
-                color: Colors.blue,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegisterTutor()),
-                  );
-                },
-                child: Text("Ir Para Cadastro de Tutor")),
-            FlatButton(
-                color: Colors.red,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AnimalRegisterFound()),
-                  );
-                },
-                child: Text("Cadastro Animal Econntrado ")),
-            FlatButton(
-                color: Colors.green,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegMyPet()),
-                  );
-                },
-                child: Text("Cadastro  Meu Animal  ")),
-            FlatButton(
-                color: Colors.yellow,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PetFound()),
-                  );
-                },
-                child: Text("Pet Notification ")),
-          ]),
+    return Scaffold(
+      appBar: PreferredSize(
+        child: Stack(children: <Widget>[
+          DashboardAppBar(future: futureAnalytics),
+        ]),
+        preferredSize: const Size.fromHeight(180.0),
+      ),
+      drawer: DashboardDrawer(),
+      body: Center(
+        child: FutureBuilder<Analytics>(
+          future: futureAnalytics,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 5,
+                        child: InfoCard(
+                          resource: Constants.PETS_CARD_OPTION,
+                          icon: const Icon(
+                            Icons.pets,
+                            color: Colors.white,
+                          ),
+                          total: snapshot.data.totalRegisteredPets,
+                          totalDay: snapshot.data.totalPetsRegisteredToday,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: InfoCard(
+                          resource: Constants.TUTORS_CARD_OPTION,
+                          icon: const Icon(
+                            Icons.people,
+                            color: Colors.white,
+                          ),
+                          total: snapshot.data.totalRegisteredTutors,
+                          totalDay: snapshot.data.totalTutorsRegisteredToday,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 5,
+                        child: InfoCard(
+                          resource: Constants.PHOTOS_CARD_OPTION,
+                          icon: const Icon(
+                            Icons.camera_alt,
+                            color: Colors.white,
+                          ),
+                          total: snapshot.data.totalRegisteredPetPhotos,
+                          totalDay: snapshot.data.totalPetPhotosRegisteredToday,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: InfoCard(
+                          resource: Constants.ALERTS_CARD_OPTION,
+                          icon: const Icon(Icons.notifications,
+                              color: Colors.white),
+                          total: 0,
+                          totalDay: 0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Expanded(
+                        child: ActionCard(
+                          title: Constants.ACTION_CARD_TITLE,
+                          body: Constants.ACTION_CARD_BODY,
+                          buttonText: Constants.ACTION_CARD_BUTTON_TEXT,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              );
+            } else if (snapshot.hasError) {
+              return const Text(Constants.LOAD_DATA_ERROR);
+            }
+            return CircularProgressIndicator();
+          },
         ),
       ),
     );

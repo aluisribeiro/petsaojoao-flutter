@@ -45,6 +45,9 @@ dependencies:
   flutter_facebook_login: ^3.0.0
   carousel_slider: ^2.1.0
   material_design_icons_flutter: 4.0.5245
+  url_launcher: ^5.4.10
+  get_it: ^4.0.2
+  flare_flutter: ^2.0.3
 
 #Icone do Aplicativo
 #Use comando seguinte para carregar o icon do app >flutter packages pub run flutter_launcher_icons:main<
@@ -78,6 +81,8 @@ flutter:
     - assets/login/legs.png
     - assets/login/logo-unifeob.png
     - assets/login/townhall.png
+    - assets/splash_screen/Paws2.flr
+    - assets/splash_screen/logo.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
