@@ -7,10 +7,7 @@ import 'package:petsaojoao/components/foundation_form/data_security_info.dart';
 import 'package:petsaojoao/models/validators/castration_validator.dart';
 import 'package:petsaojoao/models/validators/microchip_validator.dart';
 import 'package:petsaojoao/models/validators/size_pet_validator.dart';
-import 'package:petsaojoao/models/back_reg_my_pet/camera_initializer.dart';
-import 'package:petsaojoao/screens/reg_my_pet/end_reg_my_pet.dart';
 
-import '../../models/back_reg_my_pet/camera_initializer.dart';
 import 'end_form_reg_my_pet.dart';
 
 TextEditingController _sizePetController = new TextEditingController();
