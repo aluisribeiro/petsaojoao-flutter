@@ -12,7 +12,7 @@ import 'package:petsaojoao/models/validators/whatsapp_validator.dart';
 import 'end_register_tutor.dart';
 
 TextEditingController _emailController = new TextEditingController();
-var _phoneController = new MaskedTextController(mask: "(00) 0000-00000");
+var _phoneController = new MaskedTextController(mask: "(00) 0000-0000");
 var _whatsappController = new MaskedTextController(mask: "(00) 0 0000-0000");
 
 class ContactInfo extends StatefulWidget {
@@ -120,11 +120,7 @@ class _FormContactState extends State<FormContact> {
             validator: (value) {
               return PhoneValidator().validate(value);
             },
-            onChanged: (value) {
-              if (_phoneController.text.length == 15) {
-                _phoneController.updateMask("(00) 0 0000-0000");
-              }
-            },
+            onChanged: (value) {},
             keyboardType: TextInputType.number,
             controller: _phoneController,
             decoration: InputDecoration(

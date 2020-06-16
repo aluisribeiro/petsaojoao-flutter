@@ -32,7 +32,6 @@ class CepValidador {
 
     if (cep.getResponse() == 200) {
       if (cep.getLocalidade() != citySaoJoao) {
-        // print("CepInvalido");
         AlertError(icon, title, content).showAlert(context);
         FormAndress().setAndress(null, null, cep.getLocalidade());
       } else {
@@ -41,18 +40,6 @@ class CepValidador {
       }
     } else {
       FormAndress().setAndress(null, null, cepNotFound);
-      //print('Código de Retorno: ' + CEP.getResponse().toString());
-      //print('Erro: ' + CEP.getBody());
     }
   }
 }
-
-// print('CEP: ' + CEP.getCEP());
-// print('Logradouro: ' + CEP.getLogradouro());
-// print('Complemento: ' + CEP.getComplemento());
-// print('Bairro: ' + CEP.getBairro());
-// print('Localidade: ' + CEP.getLocalidade());
-// print('UF: ' + CEP.getUF());
-// print('Unidade: ' + CEP.getUnidade());
-// print('IBGE ' + CEP.getIBGE());
-// print('GIA: ' + CEP.getGIA());

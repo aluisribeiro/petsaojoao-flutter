@@ -1,7 +1,7 @@
 class SpeciesValidator {
   String validate(String value) {
     const requiredField = "O campo é obrigatorio";
-    if (value.isEmpty) {
+    if (value == null) {
       return requiredField;
     } else {
       return null;

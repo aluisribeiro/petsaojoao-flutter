@@ -8,14 +8,34 @@ import 'package:petsaojoao/models/validators/castration_validator.dart';
 import 'package:petsaojoao/models/validators/microchip_validator.dart';
 import 'package:petsaojoao/models/validators/size_pet_validator.dart';
 import 'package:petsaojoao/models/back_reg_my_pet/camera_initializer.dart';
+import 'package:petsaojoao/screens/reg_my_pet/end_reg_my_pet.dart';
 
 import '../../models/back_reg_my_pet/camera_initializer.dart';
+import 'end_form_reg_my_pet.dart';
 
 TextEditingController _sizePetController = new TextEditingController();
 TextEditingController _castrationController = new TextEditingController();
 TextEditingController _microchipController = new TextEditingController();
+var _idSizePet;
+var _statusCastration;
 
 class MyPetInfoThird extends StatefulWidget {
+  String getSizePet() {
+    return _idSizePet;
+  }
+
+  bool getStatusCastration() {
+    if (_statusCastration == "true") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  String getMicrochip() {
+    return _microchipController.text;
+  }
+
   @override
   _MyPetInfoThirdState createState() => _MyPetInfoThirdState();
 }
@@ -87,7 +107,9 @@ class _FormMyPetInfoThirdState extends State<FormMyPetInfoThird> {
           ),
           ButtonConfirmForm(() {
             if (_myPetInfoThirdFormKey.currentState.validate()) {
-              CameraInitializer().init(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EndFormRegMypet()));
+              //CameraInitializer().init(context);
             }
           })
         ]),
@@ -115,9 +137,8 @@ class _DropDownSizePetState extends State<DropDownSizePet> {
     listDropSizePet.add(new DropdownMenuItem(
       child: Row(children: <Widget>[
         Icon(
-          FontAwesomeIcons.dog,
+          FontAwesomeIcons.expandAlt,
           color: Colors.black54,
-          size: 40,
         ),
         SizedBox(
           width: 10.0,
@@ -129,14 +150,13 @@ class _DropDownSizePetState extends State<DropDownSizePet> {
           ),
         )
       ]),
-      value: _labelLarge,
+      value: 'G',
     ));
     listDropSizePet.add(new DropdownMenuItem(
       child: Row(children: <Widget>[
         Icon(
-          FontAwesomeIcons.dog,
+          FontAwesomeIcons.arrowsAltH,
           color: Colors.black54,
-          size: 30,
         ),
         SizedBox(
           width: 10.0,
@@ -148,14 +168,13 @@ class _DropDownSizePetState extends State<DropDownSizePet> {
           ),
         )
       ]),
-      value: _labelMedium,
+      value: "M",
     ));
     listDropSizePet.add(new DropdownMenuItem(
       child: Row(children: <Widget>[
         Icon(
-          FontAwesomeIcons.dog,
+          FontAwesomeIcons.compressAlt,
           color: Colors.black54,
-          size: 20,
         ),
         SizedBox(
           width: 10.0,
@@ -167,7 +186,7 @@ class _DropDownSizePetState extends State<DropDownSizePet> {
           ),
         )
       ]),
-      value: _labelSmall,
+      value: "P",
     ));
   }
 
@@ -180,27 +199,24 @@ class _DropDownSizePetState extends State<DropDownSizePet> {
   @override
   Widget build(BuildContext context) {
     loadDataSizePet();
-    return TextFormField(
-        enabled: true,
-        controller: _sizePetController,
-        readOnly: true,
-        keyboardType: TextInputType.text,
-        validator: (value) {
-          return SizePetValidator().validate(_sizePetController.text);
-        },
-        decoration: InputDecoration(
-          prefixIcon:
-              Icon(FontAwesomeIcons.arrowsAltV), //FontAwesomeIcons.paw),
-          labelText: _labelSizePet,
-          border: OutlineInputBorder(),
-          suffixIcon: Container(
-              width: 200,
-              child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                      iconSize: 40,
-                      items: listDropSizePet,
-                      onChanged: (value) => _selectSizePet(value)))),
-        ));
+    return DropdownButtonFormField<String>(
+      value: _idSizePet,
+      items: listDropSizePet,
+      validator: (value) {
+        return SizePetValidator().validate(value);
+      },
+      onChanged: (value) {
+        setState(() {
+          _idSizePet = value;
+          _selectSizePet(value);
+        });
+      },
+      decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.arrowsAltV),
+        labelText: _labelSizePet,
+        border: OutlineInputBorder(),
+      ),
+    );
   }
 }
 
@@ -235,7 +251,7 @@ class _DropDownCastrationState extends State<DropDownCastration> {
           ),
         )
       ]),
-      value: _labelYes,
+      value: 'true',
     ));
     listDropCastration.add(new DropdownMenuItem(
       child: Row(children: <Widget>[
@@ -253,7 +269,7 @@ class _DropDownCastrationState extends State<DropDownCastration> {
           ),
         )
       ]),
-      value: _labeNo,
+      value: 'false',
     ));
   }
 
@@ -266,25 +282,24 @@ class _DropDownCastrationState extends State<DropDownCastration> {
   @override
   Widget build(BuildContext context) {
     loadDataCastration();
-    return TextFormField(
-        enabled: true,
-        controller: _castrationController,
-        readOnly: true,
-        keyboardType: TextInputType.text,
-        validator: (value) {
-          return CastrationValidator().validate(_castrationController.text);
-        },
-        decoration: InputDecoration(
-          prefixIcon: Icon(FontAwesomeIcons.heartbeat), //FontAwesomeIcons.paw),
-          labelText: _labelCastration,
-          border: OutlineInputBorder(),
-          suffixIcon: Container(
-              width: 140,
-              child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                      iconSize: 40,
-                      items: listDropCastration,
-                      onChanged: (value) => _selectCastration(value)))),
-        ));
+    return DropdownButtonFormField<String>(
+      value: _statusCastration,
+      items: listDropCastration,
+      validator: (value) {
+        return CastrationValidator().validate(value);
+      },
+      onChanged: (value) {
+        print(value);
+        setState(() {
+          _statusCastration = value;
+          _selectCastration(value);
+        });
+      },
+      decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.heartbeat),
+        labelText: _labelCastration,
+        border: OutlineInputBorder(),
+      ),
+    );
   }
 }

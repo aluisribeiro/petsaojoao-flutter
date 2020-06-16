@@ -3,6 +3,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:petsaojoao/components/foundation_form/splash_screen_foundation.dart';
+import 'package:petsaojoao/services/repo_reg_my_pet/api_rest_reg_my_pet.dart';
+import 'package:petsaojoao/services/repo_reg_tutor/api_rest_tutor.dart';
 import 'my_pet_info_first.dart';
 
 class RegMyPet extends StatefulWidget {
@@ -12,7 +14,6 @@ class RegMyPet extends StatefulWidget {
 
 class _RegMyPetState extends State<RegMyPet> {
   void navigationToNextPage() {
-    //Navigator.push(context, _createRoute());
     Navigator.pushReplacement(context, _createRoute());
   }
 
