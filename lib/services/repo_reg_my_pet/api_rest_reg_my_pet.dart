@@ -5,7 +5,6 @@ import 'package:petsaojoao/screens/reg_my_pet/my_pet_info_first.dart';
 import 'package:petsaojoao/screens/register_tutor/end_register_tutor.dart';
 import 'dart:async';
 import '../base_url.dart';
-import 'StandardPet.dart';
 
 class ApiRestRegMyPet {
   static Future<List> getSpecies() async {
