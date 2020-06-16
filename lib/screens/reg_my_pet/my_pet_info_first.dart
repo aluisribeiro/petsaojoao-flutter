@@ -7,14 +7,29 @@ import 'package:petsaojoao/components/foundation_form/data_security_info.dart';
 import 'package:petsaojoao/models/validators/gender_validator.dart';
 import 'package:petsaojoao/models/validators/name_pet_validator.dart';
 import 'package:petsaojoao/models/validators/species_validator.dart';
+import 'package:petsaojoao/services/repo_reg_my_pet/api_rest_reg_my_pet.dart';
 
 import 'my_pet_info_second.dart';
 
 TextEditingController _namePetController = new TextEditingController();
 TextEditingController _speciesController = new TextEditingController();
 TextEditingController _genderController = new TextEditingController();
+var _idSpecies;
+var _idGender;
 
 class MyPetInfoFirst extends StatefulWidget {
+  String getName() {
+    return _namePetController.text;
+  }
+
+  int getIdSpecies() {
+    return int.parse(_idSpecies);
+  }
+
+  String getIdGender() {
+    return _idGender;
+  }
+
   @override
   _MyPetInfoFirstState createState() => _MyPetInfoFirstState();
 }
@@ -88,91 +103,6 @@ class _FormMyPetInfoFirstState extends State<FormMyPetInfoFirst> {
   }
 }
 
-class DropDownSpecies extends StatefulWidget {
-  @override
-  _DropDownSpeciesState createState() => _DropDownSpeciesState();
-}
-
-class _DropDownSpeciesState extends State<DropDownSpecies> {
-  final _labelSpecies = "Espécie";
-  final _labelDog = "Cachorro";
-  final _labelCat = "Gato";
-
-  List<DropdownMenuItem<String>> listDropSpecies = [];
-
-  void loadDataSpecies() {
-    listDropSpecies = [];
-
-    listDropSpecies.add(new DropdownMenuItem(
-      child: Row(children: <Widget>[
-        Icon(
-          FontAwesomeIcons.dog,
-          color: Colors.black54,
-        ),
-        SizedBox(
-          width: 10.0,
-        ),
-        Text(
-          _labelDog,
-          style: TextStyle(
-            color: Colors.black54,
-          ),
-        )
-      ]),
-      value: _labelDog,
-    ));
-    listDropSpecies.add(new DropdownMenuItem(
-      child: Row(children: <Widget>[
-        Icon(
-          FontAwesomeIcons.cat,
-          color: Colors.black54,
-        ),
-        SizedBox(
-          width: 10.0,
-        ),
-        Text(
-          _labelCat,
-          style: TextStyle(
-            color: Colors.black54,
-          ),
-        )
-      ]),
-      value: _labelCat,
-    ));
-  }
-
-  void _selectSpecies(value) {
-    setState(() {
-      _speciesController.text = value;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    loadDataSpecies();
-    return TextFormField(
-        enabled: true,
-        controller: _speciesController,
-        readOnly: true,
-        keyboardType: TextInputType.text,
-        validator: (value) {
-          return SpeciesValidator().validate(_speciesController.text);
-        },
-        decoration: InputDecoration(
-          prefixIcon: Icon(FontAwesomeIcons.paw), //FontAwesomeIcons.paw),
-          labelText: _labelSpecies,
-          border: OutlineInputBorder(),
-          suffixIcon: Container(
-              width: 200,
-              child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                      iconSize: 40,
-                      items: listDropSpecies,
-                      onChanged: (value) => _selectSpecies(value)))),
-        ));
-  }
-}
-
 class DropDownGender extends StatefulWidget {
   @override
   _DropDownGenderState createState() => _DropDownGenderState();
@@ -204,7 +134,7 @@ class _DropDownGenderState extends State<DropDownGender> {
           ),
         )
       ]),
-      value: _labelMale,
+      value: 'M',
     ));
     listDropGender.add(new DropdownMenuItem(
       child: Row(children: <Widget>[
@@ -222,7 +152,7 @@ class _DropDownGenderState extends State<DropDownGender> {
           ),
         )
       ]),
-      value: _labelFemale,
+      value: 'F',
     ));
   }
 
@@ -235,25 +165,108 @@ class _DropDownGenderState extends State<DropDownGender> {
   @override
   Widget build(BuildContext context) {
     loadDataGender();
-    return TextFormField(
-        enabled: true,
-        controller: _genderController,
-        readOnly: true,
-        keyboardType: TextInputType.text,
-        validator: (value) {
-          return GenderValidator().validate(_speciesController.text);
-        },
-        decoration: InputDecoration(
-          prefixIcon: Icon(FontAwesomeIcons.paw), //FontAwesomeIcons.paw),
-          labelText: _labelGender,
-          border: OutlineInputBorder(),
-          suffixIcon: Container(
-              width: 200,
-              child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                      iconSize: 40,
-                      items: listDropGender,
-                      onChanged: (value) => _selectGender(value)))),
-        ));
+    return DropdownButtonFormField<String>(
+      value: _idGender,
+      items: listDropGender,
+      validator: (value) {
+        return GenderValidator().validate(value);
+      },
+      onChanged: (value) {
+        setState(() {
+          _idGender = value;
+          _selectGender(value);
+        });
+      },
+      decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.venusMars),
+        labelText: _labelGender,
+        border: OutlineInputBorder(),
+      ),
+    );
+  }
+}
+
+class DropDownSpecies extends StatefulWidget {
+  @override
+  _DropDownSpeciesState createState() => _DropDownSpeciesState();
+}
+
+class _DropDownSpeciesState extends State<DropDownSpecies> {
+  final _labelSpecie = "Espécie";
+
+  List<DropdownMenuItem<String>> listDropSpecies = [];
+
+  _getSpecies() async {
+    var resp = await ApiRestRegMyPet.getSpecies();
+
+    for (var prop in resp) {
+      setState(() {
+        var _idSpecies = prop['id'].toString();
+        var _nameSpecies = prop['name'];
+        var _iconsForSpecies;
+
+        if (_nameSpecies == "Cachorro(a)") {
+          _iconsForSpecies = FontAwesomeIcons.dog;
+        } else {
+          _iconsForSpecies = FontAwesomeIcons.cat;
+        }
+        listDropSpecies.add(DropdownMenuItem(
+            value: _idSpecies,
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  _iconsForSpecies,
+                  color: Colors.black54,
+                ),
+                SizedBox(
+                  width: 10.0,
+                ),
+                Text(
+                  _nameSpecies,
+                  style: TextStyle(
+                    color: Colors.black54,
+                  ),
+                )
+              ],
+            )));
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getSpecies();
+    setState(() {
+      _idSpecies = null;
+    });
+  }
+
+  void _selectSpecies(value) {
+    setState(() {
+      _speciesController.text = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField<String>(
+      value: _idSpecies,
+      items: listDropSpecies,
+      validator: (value) {
+        return SpeciesValidator().validate(value);
+      },
+      onChanged: (value) {
+        setState(() {
+          _idSpecies = value;
+          _selectSpecies(value);
+        });
+      },
+      decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.paw),
+        labelText: _labelSpecie,
+        border: OutlineInputBorder(),
+      ),
+    );
   }
 }
