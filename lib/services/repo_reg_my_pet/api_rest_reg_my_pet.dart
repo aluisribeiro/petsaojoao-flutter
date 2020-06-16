@@ -57,7 +57,7 @@ class ApiRestRegMyPet {
     return resp;
   }
 
-  static Future<StandardPet> post(
+  static Future<String> post(
     String name,
     int breedId,
     String genere,
@@ -108,7 +108,7 @@ class ApiRestRegMyPet {
         //debugPrint(resp['id'].toString());
         var _id = resp['id'].toString();
 
-        return StandardPet();
+        return _id;
       } else {
         return null;
       }
