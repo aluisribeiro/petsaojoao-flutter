@@ -43,7 +43,7 @@ void _navigateToLogin(){
      fit: StackFit.expand,
      children: <Widget>[
        Container(
-         color: Colors.blue,
+         color: Colors.blueAccent[200],
          child: FlareActor("assets/splash_screen/Paws2.flr",
              alignment: Alignment.center,
              fit: BoxFit.contain,
