@@ -36,28 +36,28 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Container(
-            color: Theme.of(context).primaryColor,
-            child: FlareActor(
-              "assets/splash_screen/Paws2.flr",
-              alignment: Alignment.center,
-              fit: BoxFit.contain,
-              animation: "movement",
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: 130,
-                child: Image.asset("assets/splash_screen/logo.png"),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+
+     fit: StackFit.expand,
+     children: <Widget>[
+       Container(
+         color: Theme.of(context).primaryColor,
+         child: FlareActor("assets/splash_screen/Paws2.flr",
+             alignment: Alignment.center,
+             fit: BoxFit.contain,
+             animation: "movement"),
+       ),
+       Column(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: <Widget>[
+           Container(
+             width: 130,
+             child: Image.asset("assets/splash_screen/logo.png"),
+           ),
+         ],
+       ),
+     ],
+   ),
+    
+ );
   }
 }
