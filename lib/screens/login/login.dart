@@ -3,19 +3,11 @@ import 'package:petsaojoao/models/utils_firebase/firebase_facebook.dart';
 import 'package:petsaojoao/screens/dashboard/dashboard.dart';
 import '../../models/utils_firebase/firebase_auth.dart';
 import '../dashboard/dashboard.dart';
-import '../register_tutor/personal_info.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-
-
-//Acompanhe desing do projeto aqui --> https://www.figma.com/file/GYFrt79mzIbOUXXmFyDgwL/Material-Baseline-Design-Kit?node-id=38%3A5814
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      return Scaffold(
         backgroundColor: Colors.white,
         body: Stack(
             children: <Widget> [
@@ -89,15 +81,14 @@ class Login extends StatelessWidget {
                 child: Container(
                   width: double.maxFinite,
                   height: 30,
-                  color: Colors.blueAccent[200],
+                  color: Theme.of(context).primaryColor,
                   child:
                   Image.asset("assets/login/logo-unifeob.png"),
                 ),
               ),
             ]
         ),
-      ),
-    );
+      );
   }
 }
 
@@ -178,7 +169,7 @@ class SocialLogin extends StatelessWidget {
             width: 65,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.blueAccent[200],
+              color: Theme.of(context).primaryColor,
             ),
             child: FlatButton(
               child: SizedBox(
@@ -189,7 +180,8 @@ class SocialLogin extends StatelessWidget {
 
               onPressed: () async {
                 signUpWithFacebook().whenComplete(() => {
-                  Navigator.of(context).push(
+                  Navigator.push(
+                    context,
                     MaterialPageRoute(
                       builder: (context){
                         return Dashboard();

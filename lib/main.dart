@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petsaojoao/screens/splash_screen/splash_screen.dart';
-//import 'package:petsaojoao/screens/cadTutorForm/tutorForm.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,7 +16,9 @@ class MyApp extends StatelessWidget {
       title: 'Pet São João',
       debugShowMaterialGrid: false,
       theme: ThemeData(
-          primaryColor: Colors.blueAccent[200], primarySwatch: Colors.blue),
+        primaryColor: Colors.blueAccent[200],
+        primarySwatch: Colors.blue,
+      ),
       home: SplashScreen(),
     );
   }
